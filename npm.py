@@ -11,7 +11,7 @@ def icons(view):
   view.add_regions('require', regions, 'npm', 'Packages/npm-install/icon.png', flags)
 
 def is_valid(view):
-  return '.js' in view.file_name()
+  return view.file_name().endswith('.js')
 
 def modules(root):
   modules = []
