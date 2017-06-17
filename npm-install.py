@@ -39,4 +39,4 @@ class EventEditor(sublime_plugin.EventListener):
 
     def on_post_save_async(self, view):
         if install_on_save:
-            view.run_command("npm_install")
+            view.run_command('npm_install')
