@@ -1,6 +1,15 @@
 import sublime_plugin
+import sublime
+import re
 from . import npm
-from . import settings
+
+def update_settings():
+  install_on_save = settings.get('install_on_save')
+
+install_on_save = True
+settings = sublime.load_settings('npm-install.sublime-settings')
+settings.add_on_change('install_on_save', update_settings)
+update_settings()
 
 class NpmInstallCommand(sublime_plugin.TextCommand):
 
@@ -9,7 +18,7 @@ class NpmInstallCommand(sublime_plugin.TextCommand):
 
     def run(self, edit):
 
-      if not npm.is_valid(self.view) or not len(self.view.find_all(module_regex)):
+      if not npm.is_valid(self.view) or not len(self.view.find_all(npm.module_regex)):
         return
 
       # mark line as npm module
@@ -23,7 +32,7 @@ class NpmInstallCommand(sublime_plugin.TextCommand):
       # parse file          
       content = self.view.substr(sublime.Region(0, self.view.size()))
 
-      for module in re.findall(module_regex, content):
+      for module in re.findall(npm.module_regex, content):
         if module[0] == '-':
            npm.uninstall(module[1:], self.view.window(), cwd)
         elif module not in modules:
