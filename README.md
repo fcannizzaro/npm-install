@@ -4,7 +4,7 @@ auto install npm modules, show npm icons.
 ![preview](https://raw.githubusercontent.com/fcannizzaro/npm-install/master/npm-install.png)
 
 ## Keyboard Shortcut
-<kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>I</kbd> or <kbd>⌘</kbd>+<kbd><kbd>SHIFT</kbd>+<kbd>I</kbd> check and install/uninstall modules.
+<kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>I</kbd> or <kbd>⌘</kbd>+<kbd>SHIFT</kbd>+<kbd>I</kbd> check and install/uninstall modules.
 
 
 ## Settings
