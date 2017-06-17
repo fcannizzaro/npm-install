@@ -24,10 +24,10 @@ def modules(root):
   return modules
 
 def install(module, window, root):
-  Exec(module,window, root, 'install').start()
+  Exec(module, window, root, 'install').start()
 
 def uninstall(module, window, root):
-  Exec(module,window, root, 'uninstall').start()
+  Exec(module, window, root, 'uninstall').start()
 
 class Exec(threading.Thread):
 
