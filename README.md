@@ -3,10 +3,10 @@ auto install npm modules, show npm icons, open npmjs documentation.
 
 ![preview](https://raw.githubusercontent.com/fcannizzaro/npm-install/master/npm-install.png)
 
-## Keyboard Shortcut
+## install/uninstall modules
 <kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>I</kbd> check and install/uninstall modules.
 
-## Mouse Shortcut
+## open documentation
 <kbd>ALT</kbd>+<kbd>CLICK</kbd> or <kbd>ALT</kbd>+<kbd>ENTER</kbd> open module documentation on [npmjs](https://www.npmjs.com).
 
 ## Settings
