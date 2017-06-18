@@ -6,7 +6,7 @@ import threading
 import sublime
 import re
 
-module_regex = r'.*require\(["\']([^.].*?)["\']\).*'
+module_regex = r'.*require\(["\']([^.][^\.]*?)["\']\).*'
 NPMJS = 'https://www.npmjs.com/package/'
 
 def icons(view):
