@@ -31,7 +31,7 @@ def icons(view):
 def is_valid(view):
   return view.file_name().endswith('.js')
 
-def modules(root):
+def find_modules(root):
   modules = []
   p = subprocess.Popen(['npm', 'ls', '-parseable', '-depth=0'], shell=True, cwd=root, stdout=subprocess.PIPE)
   next(p.stdout)
@@ -116,7 +116,7 @@ class Command(threading.Thread):
       # list npm modules
       project = re.match(r'(.*)[\/\\].*', self.view.file_name())
       cwd = project.group(1)
-      modules = modules(cwd)
+      modules = find_modules(cwd)
       
       # find modules and install/uninstall
       for region in regions:
