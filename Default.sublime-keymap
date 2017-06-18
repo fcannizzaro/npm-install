@@ -1,3 +1,10 @@
 [
-   { "keys": ["ctrl+alt+i"], "command": "npm_install" }
+  {
+    "keys": ["ctrl+alt+i"],
+    "command": "npm_install"
+  },
+  {
+    "keys": ["alt+enter"],
+    "command": "npm_doc"
+  }  
 ]
