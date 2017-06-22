@@ -4,6 +4,10 @@
     "command": "npm_install"
   },
   {
+    "keys": ["ctrl+alt+u"],
+    "command": "npm_uninstall"
+  },
+  {
     "keys": ["alt+enter"],
     "command": "npm_doc"
   }  

@@ -1,143 +1,137 @@
 import sublime_plugin
 import webbrowser as browser
+from os import listdir, path
 from sublime import Region
 import subprocess
 import threading
 import sublime
 import re
 
-module_regex = r'.*require\(["\']([^.][^\.]*?)["\']\).*'
-NPMJS = 'https://www.npmjs.com/package/'
+MODULE = r'.*require\(["\']([^.][^\.]*?)["\']\).*'
+data = {}
+root = {}
 
-def icons(view):
-  regions = view.find_all(module_regex)
-  modules = []
-
-  for region in regions:
-    text = view.substr(region)
-    m = re.search(module_regex, text)
-    a,b = m.span(1)
-    if m.group(1)[0] != '-':
-      modules.append(Region(a + region.begin(),b + region.begin()))
-
-  flags = sublime.HIDE_ON_MINIMAP | sublime.DRAW_NO_FILL | sublime.DRAW_NO_OUTLINE
-  view.add_regions('require', regions, 'npm', 'Packages/npm-install/icon.png', flags)
-
-  flags |= sublime.DRAW_SOLID_UNDERLINE
-  view.add_regions('modules', modules, 'modules', flags=flags)
-
-  return regions
+settings = sublime.load_settings('npm-install.sublime-settings')
+install_on_save = settings.get('install_on_save')
 
 def is_valid(view):
-  return view.file_name().endswith('.js')
+  return view.file_name() and view.file_name().endswith('.js')
 
-def find_modules(root):
-  modules = []
-  p = subprocess.Popen(['npm', 'ls', '-parseable', '-depth=0'], shell=True, cwd=root, stdout=subprocess.PIPE)
-  next(p.stdout)
-  for line in p.stdout:
-    m = re.match(r'.*(?:\\\\|/)(.*)\\.*', str(line))
-    if m:
-      modules.append(m.group(1))
-  return modules
+def npmls(file, p):
+  if file not in root:
+    out = subprocess.check_output(['npm', 'root'], cwd=p, shell=True)
+    out = out.decode().strip()
+    if not path.exists(out): return []
+    root[file] = out
+  return listdir(root[file])
 
-def install(module, view, root):
-  Exec(module, view.window(), root, 'install').start()
+def cwd(view):
+  project = re.match(r'(.*)[\/\\].*', view.file_name())
+  return project.group(1)
 
-def uninstall(module, view, root, region):
-  Exec(module, view.window(), root, 'uninstall', region, view).start()
+def update_icons(view):
 
-class Exec(threading.Thread):
+    file = view.file_name()
+    if file not in data: return
 
-    def __init__(self, module, window, root, action, region=None, view=None):
+    installed = []    
+    other = []
+    result = []
+
+    for region in view.find_all(MODULE):
+      m = re.search(MODULE, view.substr(region))
+      a,b = m.span(1)
+      module = m.group(1)
+      reg = Region(a + region.begin(), b + region.begin())
+      if module in data[file]:
+        installed.append(reg)
+      else:
+        other.append(reg)
+        result.append(module)
+
+    flags = sublime.HIDE_ON_MINIMAP | sublime.DRAW_NO_FILL | sublime.DRAW_NO_OUTLINE | sublime.DRAW_SOLID_UNDERLINE
+    view.add_regions('require-on', installed, 'request', 'Packages/npm-install/icon-on.png', flags)    
+    view.add_regions('require-off', other, 'request', 'Packages/npm-install/icon-off.png', flags)
+
+    return result
+
+def line(view):
+  sel = view.sel()[0]
+  line = view.full_line(sel)
+  req = view.substr(line)
+  match = re.match(MODULE, req)
+  return (line, match.group(1) if match else None)
+
+class NpmExec(threading.Thread):
+
+    def __init__(self, module, root, action, view):
         self.module = module
-        self.window = window
         self.root = root
         self.action = action
-        self.region = region
         self.view = view
         threading.Thread.__init__(self)
 
-    def run(self):
-      self.window.status_message('%sing %s' % (self.action, self.module))
-      subprocess.Popen(['npm', self.action, self.module, '-s'], shell=True, cwd=self.root)
-      print('npm', self.action, self.module)
-      if self.view:
-        self.view.run_command("npm_clear", { 'a': self.region.a, 'b': self.region.b })
-
-def update_settings():
-  install_on_save = settings.get('install_on_save')
-
-install_on_save = True
-settings = sublime.load_settings('npm-install.sublime-settings')
-settings.add_on_change('install_on_save', update_settings)
-update_settings()
-
+    def run(self):      
+      self.view.window().status_message('%sing %s' % (self.action, self.module))
+      subprocess.Popen(['npm', self.action, self.module, '-s'], shell=True, cwd=self.root).wait()
+      self.view.run_command('npm_install', {'action':'initial'}) 
+  
 class NpmDocCommand(sublime_plugin.TextCommand):
 
   def run(self, edit):
-    sel = self.view.sel()[0]
-    line = self.view.full_line(sel)
-    req = self.view.substr(line)
-    match = re.match(module_regex, req)
-    if match: browser.open(NPMJS + match.group(1))
+    region, module = line(self.view)
+    if module: browser.open('https://www.npmjs.com/package/' + module)
  
-class NpmInstallCommand(sublime_plugin.TextCommand):
+class NpmCommand(threading.Thread):
 
-    def is_visible(self):
-        return is_valid(self.view)
-
-    def run(self, edit):
-      Command(self.view, edit).start()
- 
-class NpmClearCommand(sublime_plugin.TextCommand):
-
-    def run(self, edit, a, b):
-      self.view.erase(edit, Region(a,b))
-
-class Command(threading.Thread):
-
-    def __init__(self, view, edit):
+    def __init__(self, view, edit, action):
         self.view = view
         self.edit = edit
+        self.action = action
         threading.Thread.__init__(self)
 
     def run(self):
 
-      if not is_valid(self.view):
-        return
+      if self.action in ['install', 'initial']:
+        root = cwd(self.view)
+        file = self.view.file_name()
+        data[file] = npmls(file, root)
 
-      # mark line as npm module
-      regions = icons(self.view)
-
-      if not len(regions):
-        return
-
-      # list npm modules
-      project = re.match(r'(.*)[\/\\].*', self.view.file_name())
-      cwd = project.group(1)
-      modules = find_modules(cwd)
+      install = update_icons(self.view)
       
-      # find modules and install/uninstall
-      for region in regions:
-        
-        match = re.match(module_regex, self.view.substr(region))
-        module = match.group(1)
-        
-        if module[0] == '-':
-           uninstall(module[1:], self.view, cwd, region)           
+      if self.action is 'install':
+        for module in install:
+          NpmExec(module, root, 'install', self.view).start()
 
-        elif module not in modules:
-          install(module, self.view, cwd)
+class NpmInstallCommand(sublime_plugin.TextCommand):
+    
+    def is_visible(self):
+      return is_valid(self.view)
+
+    def run(self, edit, action='install'):
+      if is_valid(self.view):
+        NpmCommand(self.view, edit, action).start()
+
+class NpmUninstallCommand(sublime_plugin.TextCommand):
+    
+    def is_visible(self):
+      region, module = line(self.view)
+      return not not module
+
+    def run(self, edit):
+      if is_valid(self.view):
+        region, module = line(self.view)
+        self.view.erase(edit, region)
+        NpmExec(module, cwd(self.view), 'uninstall', self.view).start()
 
 class EventEditor(sublime_plugin.EventListener):
-
-    def on_modified_async(self, view):
-        icons(view)
+  
+  def on_modified_async(self, view):
+    view.run_command('npm_install', {'action':'mark'}) 
         
-    def on_activated_async(self, view):
-        icons(view)
+  def on_load_async(self, view):
+    view.run_command('npm_install', {'action':'initial'})
 
-    def on_post_save_async(self, view):
-        if install_on_save:
-            view.run_command('npm_install')
+  def on_post_save_async(self, view):
+    if install_on_save:
+      view.run_command('npm_install')

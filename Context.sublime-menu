@@ -1,0 +1,7 @@
+[
+    {
+        "caption": "Remove NPM module",
+        "mnemonic": "R",
+        "command":  "npm_uninstall"     
+    }
+]

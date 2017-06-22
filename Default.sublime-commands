@@ -1,0 +1,4 @@
+[
+    { "caption": "Install All NPM Modules", "command": "npm_install" },
+    { "caption": "Remove NPM Module", "command": "npm_uninstall" }
+]
