@@ -22,9 +22,11 @@ def npmls(file, p):
   if file not in root:
     out = subprocess.check_output(['npm', 'root'], cwd=p, shell=True)
     out = out.decode().strip()
-    if not path.exists(out): return []
     root[file] = out
-  return listdir(root[file])
+  try:      
+    return listdir(root[file])
+  except Exception:
+    return []
 
 def cwd(view):
   project = re.match(r'(.*)[\/\\].*', view.file_name())
