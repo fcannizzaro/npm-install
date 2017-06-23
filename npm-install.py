@@ -32,7 +32,10 @@ def cwd(view):
 def update_icons(view):
 
     file = view.file_name()
-    if file not in data: return
+    
+    if file not in data: 
+      view.run_command('npm_install', {'action':'initial'})
+      return
 
     installed = []    
     other = []
