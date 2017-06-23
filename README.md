@@ -3,12 +3,11 @@ auto install npm modules, show npm icons, open npmjs documentation.
 
 ![preview](https://raw.githubusercontent.com/fcannizzaro/npm-install/master/npm-install.png)
 
-## Commands
-|           Command           | Default shortcut key (Windows, Linux) | Default shortcut key (OS X) |
-|---------------------------|-------------------------------------|---------------------------|
-| Install Modules       |               <kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>I</kbd>              |          <kbd>⌘</kbd>+<kbd>option</kbd>+<kbd>I</kbd>         |
-| Uninstall Module      |               <kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>U</kbd>              |          <kbd>⌘</kbd>+<kbd>option</kbd>+<kbd>U</kbd>         |
-| Open Documentation on [npmjs](https://www.npmjs.com) |          <kbd>ALT</kbd>+<kbd>ENTER</kbd>, <kbd>ALT</kbd>+<kbd>CLICK</kbd>         |  <kbd>option</kbd>+<kbd>ENTER</kbd>, <kbd>option</kbd>+<kbd>CLICK</kbd> |
+|           Command           | Default shortcut key<br>(Windows, Linux) | Default shortcut key<br>(OS X) | Extra
+|---------------------------|-------------------------------------|---------------------------|---------------------------|
+|Install Modules |<kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>I</kbd>|<kbd>⌘</kbd>+<kbd>option</kbd>+<kbd>I</kbd>| Command Palette
+|Uninstall Module|<kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>U</kbd><br><kbd>ALT</kbd>+<kbd>RIGHT CLICK</kbd>|<kbd>⌘</kbd>+<kbd>option</kbd>+<kbd>U</kbd><br><kbd>option</kbd>+<kbd>RIGHT CLICK</kbd>| Command Palette<br>Context Menu
+|Open Documentation on [npmjs](https://www.npmjs.com)|<kbd>ALT</kbd>+<kbd>ENTER</kbd><br><kbd>ALT</kbd>+<kbd>CLICK</kbd>|<kbd>option</kbd>+<kbd>ENTER</kbd><br><kbd>option</kbd>+<kbd>CLICK</kbd>| Command Palette<br>Context Menu
 
 ## Icons
 | Icon |    Description   |

@@ -83,6 +83,10 @@ class NpmExec(threading.Thread):
       self.view.run_command('npm_install', {'action':'initial'}) 
   
 class NpmDocCommand(sublime_plugin.TextCommand):
+  
+  def is_visible(self):
+    region, module = line(self.view)
+    return not not module
 
   def run(self, edit):
     region, module = line(self.view)

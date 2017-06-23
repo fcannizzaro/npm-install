@@ -1,7 +1,12 @@
 [
     {
-        "caption": "Remove NPM module",
+        "caption": "Open NPM Documentation",
+        "mnemonic": "O",
+        "command":  "npm_doc"     
+    },
+    {
+        "caption": "Remove NPM Module",
         "mnemonic": "R",
         "command":  "npm_uninstall"     
-    }
+    }  
 ]

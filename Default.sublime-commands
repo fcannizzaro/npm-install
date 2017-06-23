@@ -1,4 +1,5 @@
 [
-    { "caption": "Install All NPM Modules", "command": "npm_install" },
-    { "caption": "Remove NPM Module", "command": "npm_uninstall" }
+    { "caption": "NPM: Install All Modules", "command": "npm_install" },
+    { "caption": "NPM: Remove Module", "command": "npm_uninstall" },
+    { "caption": "NPM: Open Documentation", "command": "npm_doc" }
 ]
