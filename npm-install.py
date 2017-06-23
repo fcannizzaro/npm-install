@@ -38,7 +38,7 @@ def update_icons(view):
     
     if file not in data: 
       view.run_command('npm_install', {'action':'initial'})
-      return
+      return []
 
     installed = []    
     other = []
