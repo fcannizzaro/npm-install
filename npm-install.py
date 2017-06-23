@@ -35,21 +35,23 @@ def cwd(view):
 def update_icons(view):
 
     file = view.file_name()
-    
-    if file not in data: 
-      view.run_command('npm_install', {'action':'initial'})
-      return []
 
+    modules = []
     installed = []    
     other = []
     result = []
-
+    
+    if file not in data: 
+      view.run_command('npm_install', {'action':'initial'})
+    else:
+      modules = data[file]
+      
     for region in view.find_all(MODULE):
       m = re.search(MODULE, view.substr(region))
       a,b = m.span(1)
       module = m.group(1)
       reg = Region(a + region.begin(), b + region.begin())
-      if module in data[file]:
+      if module in modules:
         installed.append(reg)
       else:
         other.append(reg)
