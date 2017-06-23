@@ -3,14 +3,12 @@ auto install npm modules, show npm icons, open npmjs documentation.
 
 ![preview](https://raw.githubusercontent.com/fcannizzaro/npm-install/master/npm-install.png)
 
-## Install modules
-<kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>I</kbd> or **Command Palette**: check and install missing modules.
-
-## Uninstall modules
-<kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>U</kbd> or **Context Menu** or **Command Palette**: uninstall selected module.
-
-## Open documentation
-<kbd>ALT</kbd>+<kbd>CLICK</kbd> or <kbd>ALT</kbd>+<kbd>ENTER</kbd> (on module name): open module documentation on [npmjs](https://www.npmjs.com).
+## Commands
+|           Command           | Default shortcut key (Windows, Linux) | Default shortcut key (OS X) |
+|---------------------------|-------------------------------------|---------------------------|
+| Install Modules       |               <kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>I</kbd>              |          <kbd>⌘</kbd>+<kbd>option</kbd>+<kbd>I</kbd>         |
+| Uninstall Module      |               <kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>U</kbd>              |          <kbd>⌘</kbd>+<kbd>option</kbd>+<kbd>U</kbd>         |
+| Open Documentation on [npmjs](https://www.npmjs.com) |          <kbd>ALT</kbd>+<kbd>ENTER</kbd>, <kbd>ALT</kbd>+<kbd>CLICK</kbd>         |  <kbd>option</kbd>+<kbd>ENTER</kbd>, <kbd>option</kbd>+<kbd>CLICK</kbd> |
 
 ## Icons
 | Icon |    Description   |

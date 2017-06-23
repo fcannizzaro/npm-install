@@ -16,7 +16,7 @@ settings = sublime.load_settings('npm-install.sublime-settings')
 install_on_save = settings.get('install_on_save')
 
 def is_valid(view):
-  return view.file_name() and view.file_name().endswith('.js')
+  return view.file_name() != None and view.file_name().endswith('.js')
 
 def npmls(file, p):
   if file not in root:
