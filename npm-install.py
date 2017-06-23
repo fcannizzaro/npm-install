@@ -8,6 +8,7 @@ import sublime
 import re
 
 MODULE = r'.*require\(["\']([^.][^\.]*?)["\']\).*'
+ICON = "Packages/npm-install/icon-%s.png"
 data = {}
 root = {}
 
@@ -53,8 +54,8 @@ def update_icons(view):
         result.append(module)
 
     flags = sublime.HIDE_ON_MINIMAP | sublime.DRAW_NO_FILL | sublime.DRAW_NO_OUTLINE | sublime.DRAW_SOLID_UNDERLINE
-    view.add_regions('require-on', installed, 'request', 'Packages/npm-install/icon-on.png', flags)    
-    view.add_regions('require-off', other, 'request', 'Packages/npm-install/icon-off.png', flags)
+    view.add_regions('require-on', installed, 'request', ICON % 'on', flags)    
+    view.add_regions('require-off', other, 'request', ICON % 'off', flags)
 
     return result
 
@@ -124,17 +125,25 @@ class NpmUninstallCommand(sublime_plugin.TextCommand):
     def run(self, edit):
       if is_valid(self.view):
         region, module = line(self.view)
-        self.view.erase(edit, region)
-        NpmExec(module, cwd(self.view), 'uninstall', self.view).start()
+        reply = sublime.yes_no_cancel_dialog('Remove "%s" module?' % module, 'Yes', 'No')
+        if reply == 1:
+          self.view.erase(edit, region)
+          NpmExec(module, cwd(self.view), 'uninstall', self.view).start()
 
 class EventEditor(sublime_plugin.EventListener):
-  
-  def on_modified_async(self, view):
+
+  def on_modified(self, view):
     view.run_command('npm_install', {'action':'mark'}) 
         
-  def on_load_async(self, view):
+  def on_load(self, view):
     view.run_command('npm_install', {'action':'initial'})
 
-  def on_post_save_async(self, view):
+  def on_post_save(self, view):
     if install_on_save:
       view.run_command('npm_install')
+
+def plugin_loaded():
+  for win in sublime.windows():
+    for view in win.views():
+      view.run_command('npm_install', {'action':'initial'})
+
