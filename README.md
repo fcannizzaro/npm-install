@@ -15,7 +15,7 @@ auto install npm modules, show npm icons, open npmjs documentation.
 ## Icons
 | Icon |    Description   |
 |:----:|:----------------:|
-| ![on](https://raw.githubusercontent.com/fcannizzaro/npm-install/master/icon-on.png)   | module installed |
+| ![on](https://raw.githubusercontent.com/fcannizzaro/npm-install/master/icon-on.png)   | installed module |
 | ![off](https://raw.githubusercontent.com/fcannizzaro/npm-install/master/icon-off.png) |  missing module  |
 
 ## Settings
