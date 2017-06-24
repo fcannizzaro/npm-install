@@ -9,11 +9,9 @@ import re
 
 MODULE = r'.*require\(["\']([^.][^\.]*?)["\']\).*'
 ICON = "Packages/npm-install/icon-%s.png"
+install_on_save = True
 data = {}
 root = {}
-
-settings = sublime.load_settings('npm-install.sublime-settings')
-install_on_save = settings.get('install_on_save')
 
 def is_valid(view):
   return view.file_name() != None and view.file_name().endswith('.js')
@@ -110,7 +108,7 @@ class NpmCommand(threading.Thread):
         data[file] = npmls(file, root)
 
       install = update_icons(self.view)
-      
+            
       if self.action is 'install':
         for module in install:
           NpmExec(module, root, 'install', self.view).start()
@@ -138,20 +136,25 @@ class NpmUninstallCommand(sublime_plugin.TextCommand):
           self.view.erase(edit, region)
           NpmExec(module, cwd(self.view), 'uninstall', self.view).start()
 
+def initial(view):
+  view.run_command('npm_install', {'action':'initial'})
+
 class EventEditor(sublime_plugin.EventListener):
 
   def on_modified(self, view):
     view.run_command('npm_install', {'action':'mark'}) 
         
   def on_load(self, view):
-    view.run_command('npm_install', {'action':'initial'})
+    initial(view)    
 
   def on_post_save(self, view):
     if install_on_save:
       view.run_command('npm_install')
 
 def plugin_loaded():
+  settings = sublime.load_settings('npm-install.sublime-settings')
+  install_on_save = settings.get('install_on_save')
   for win in sublime.windows():
     for view in win.views():
-      view.run_command('npm_install', {'action':'initial'})
+      initial(view)
 
