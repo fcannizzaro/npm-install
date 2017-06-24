@@ -9,7 +9,6 @@ import re
 
 MODULE = r'.*require\(["\']([^.][^\.]*?)["\']\).*'
 ICON = "Packages/npm-install/icon-%s.png"
-install_on_save = True
 data = {}
 root = {}
 
@@ -148,12 +147,10 @@ class EventEditor(sublime_plugin.EventListener):
     initial(view)    
 
   def on_post_save(self, view):
-    if install_on_save:
+    if view.settings().get('npm_install_on_save', True):
       view.run_command('npm_install')
 
 def plugin_loaded():
-  settings = sublime.load_settings('npm-install.sublime-settings')
-  install_on_save = settings.get('install_on_save')
   for win in sublime.windows():
     for view in win.views():
       initial(view)

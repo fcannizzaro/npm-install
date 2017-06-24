@@ -16,4 +16,4 @@ auto install npm modules, show npm icons, open npmjs documentation.
 | ![off](https://raw.githubusercontent.com/fcannizzaro/npm-install/master/icon-off.png) |  missing module  |
 
 ## Settings
-- `install_on_save`: **true**, install node modules **on save**.
+Add `npm_install_on_save`: **false**, to prevent auto-install node modules **on save**.
