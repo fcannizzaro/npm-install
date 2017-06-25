@@ -1,5 +1,5 @@
 # `npm-install` for sublime text 3
-auto install npm modules, show npm icons, open npmjs documentation.
+auto install npm modules, show npm icons, autocomplete require, open npmjs documentation.
 
 ![preview](https://raw.githubusercontent.com/fcannizzaro/npm-install/master/npm-install.png)
 
@@ -16,4 +16,8 @@ auto install npm modules, show npm icons, open npmjs documentation.
 | ![off](https://raw.githubusercontent.com/fcannizzaro/npm-install/master/icon-off.png) |  missing module  |
 
 ## Settings
-Add `npm_install_on_save`: **false**, to prevent auto-install node modules **on save**.
+
+|         key           |    default    |                        action                 |
+|-----------------------|:-------------:|-----------------------------------------------|
+| `npm_install_on_save` |   **true**    | auto-install node modules **on save**.        |
+| `npm_autocomplete`    |   **true**    | autocomplete node modules's require.          |

@@ -1,11 +1,13 @@
 import sublime_plugin
-import webbrowser as browser
-from os import listdir, path
-from sublime import Region
+import webbrowser
 import subprocess
 import threading
 import sublime
 import re
+
+from os import listdir, path
+from sublime import Region
+
 
 MODULE = r'.*require\(["\']([^.][^\.]*?)["\']\).*'
 ICON = "Packages/npm-install/icon-%s.png"
@@ -89,7 +91,7 @@ class NpmDocCommand(sublime_plugin.TextCommand):
 
   def run(self, edit):
     region, module = line(self.view)
-    if module: browser.open('https://www.npmjs.com/package/' + module)
+    if module: webbrowser.open('https://www.npmjs.com/package/' + module)
  
 class NpmCommand(threading.Thread):
 
@@ -149,6 +151,17 @@ class EventEditor(sublime_plugin.EventListener):
   def on_post_save(self, view):
     if view.settings().get('npm_install_on_save', True):
       view.run_command('npm_install')
+
+  def get_module(self, module):
+    clean =  module.replace('-', '_').replace('@', '')
+    return [ module+'\tnpm' , 'var %s = require(\'%s\');\n' % (clean, module) ]
+
+  def on_query_completions(self, view, prefix, locations):
+    if is_valid(view) and view.settings().get('npm_autocomplete', True):
+      file = view.file_name()
+      if file in data:
+        return [ self.get_module(module) for module in data[file] if '.' not in module]
+    return []
 
 def plugin_loaded():
   for win in sublime.windows():
