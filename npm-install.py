@@ -88,7 +88,7 @@ class NpmExec(threading.Thread):
         self.root = root
         self.action = action
         self.view = view
-        self.mng = view.settings().get('npm_manager', 'npm')
+        self.mng = view.settings().get('npm_install_manager', 'npm')
         if self.mng == 'yarn':
           self.action = 'add' if action == 'install' else 'remove'
         threading.Thread.__init__(self)
