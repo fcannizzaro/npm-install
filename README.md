@@ -17,7 +17,8 @@ auto install npm modules, show npm icons, autocomplete require, open npmjs docum
 
 ## Settings
 
-|         key           |    default    |                        action                 |
-|-----------------------|:-------------:|-----------------------------------------------|
-| `npm_install_on_save` |   **true**    | auto-install node modules **on save**.        |
-| `npm_autocomplete`    |   **true**    | autocomplete node modules's require.          |
+|         key           |    default    |                        action                     |
+|-----------------------|:-------------:|---------------------------------------------------|
+| `npm_install_on_save` |   **true**    | auto-install node modules **on save**.            |
+| `npm_autocomplete`    |   **true**    | autocomplete node modules's require.              |
+| `npm_manager`         |   **"npm"**   | javascript package manager: `npm`, `yarn`, `pnpm` |
