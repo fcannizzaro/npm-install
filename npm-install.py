@@ -60,7 +60,7 @@ def update_icons(view):
         a, b = m.span(1)
         module = m.group(1)
         reg = Region(a + region.begin(), b + region.begin())
-        if module in modules:
+        if module in modules or module in CORE:
             installed.append(reg)
         else:
             other.append(reg)
@@ -90,11 +90,11 @@ class NpmExec(threading.Thread):
         self.view = view
         self.mng = view.settings().get('npm_install_manager', 'npm')
         if self.mng == 'yarn':
-          self.action = 'add' if action == 'install' else 'remove'
+            self.action = 'add' if action == 'install' else 'remove'
         threading.Thread.__init__(self)
 
     def run(self):
-        if self.module not in CORE:            
+        if self.module not in CORE:
             args = [self.mng, self.action, self.module, '-s']
             self.view.window().status_message('%sing %s' % (self.action, self.module))
             subprocess.Popen(args, shell=True, cwd=self.root).wait()
