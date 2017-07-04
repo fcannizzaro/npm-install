@@ -3,6 +3,7 @@ import webbrowser
 import subprocess
 import threading
 import sublime
+import sys
 import re
 
 from os import listdir, path
@@ -27,7 +28,11 @@ def is_valid(view):
 
 def node_modules_ls(file, p):
     if file not in root:
-        out = subprocess.check_output(['npm', 'root'], cwd=p, shell=True)
+        args = ['npm', 'root']
+        if sys.platform != 'win32':
+          args = [ " ".join(args) ]
+        p = subprocess.Popen(args, cwd=p, shell=True, stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+        out, err = p.communicate()
         out = out.decode().strip()
         root[file] = out
     try:
@@ -95,7 +100,12 @@ class NpmExec(threading.Thread):
 
     def run(self):
         if self.module not in CORE:
+
             args = [self.mng, self.action, self.module, '-s']
+
+            if sys.platform != 'win32':
+                args = [ " ".join(args) ]
+
             self.view.window().status_message('%sing %s' % (self.action, self.module))
             subprocess.Popen(args, shell=True, cwd=self.root).wait()
             self.view.run_command('npm_install', {'action': 'initial'})
