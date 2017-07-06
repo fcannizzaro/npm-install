@@ -3,6 +3,16 @@ auto install npm modules, show npm icons, autocomplete require, open npmjs docum
 
 ![preview](https://raw.githubusercontent.com/fcannizzaro/npm-install/master/npm-install.png)
 
+## Installation
+
+You can install this package through the [Package Control](https://packagecontrol.io/packages/npm-install).
+
+Press <kbd>⌘</kbd>/<kbd>Ctrl</kbd> + <kbd>⇧</kbd> + <kbd>P</kbd> to open the command palette.
+
+Type **Install Package** and press enter. Then search for **npm-install**.
+
+## Commands
+
 |           Command           | Default shortcut key<br>(Windows, Linux) | Default shortcut key<br>(OS X) | Extra
 |---------------------------|-------------------------------------|---------------------------|---------------------------|
 |Install Modules |<kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>I</kbd>|<kbd>⌘</kbd>+<kbd>option</kbd>+<kbd>I</kbd>| Command Palette
