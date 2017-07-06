@@ -5,6 +5,7 @@ import threading
 import sublime
 import sys
 import re
+import os.path
 
 from os import listdir, path
 from sublime import Region
@@ -25,14 +26,16 @@ root = {}
 def is_valid(view):
     return view.file_name() != None and view.file_name().endswith('.js')
 
+def exec(args, pn):
+    if sys.platform != 'win32':
+        args = [ " ".join(args) ]
+    return subprocess.Popen(args, cwd=pn, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
-def node_modules_ls(file, p):
-    if file not in root:
-        args = ['npm', 'root']
-        if sys.platform != 'win32':
-          args = [ " ".join(args) ]
-        p = subprocess.Popen(args, cwd=p, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        out, err = p.communicate()
+def node_modules_ls(file, pn):
+    if not os.path.isfile('%s/package.json' % pn):
+        exec(['npm', 'init', '-f'], pn).wait()
+    if file not in root:       
+        out, err = exec(['npm', 'root'], pn).communicate()
         out = out.decode().strip()
         root[file] = out
     try:

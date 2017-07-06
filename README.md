@@ -1,5 +1,5 @@
 # `npm-install` for sublime text 3
-auto install npm modules, show npm icons, autocomplete require, open npmjs documentation.
+auto install npm modules, create package.json, show npm icons, autocomplete require, open npmjs documentation.
 
 ![preview](https://raw.githubusercontent.com/fcannizzaro/npm-install/master/npm-install.png)
 
