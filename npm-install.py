@@ -16,7 +16,7 @@ CORE = [
     'tty',  'url',  'util',  'v8',  'vm',  'zlib'
 ]
 
-MODULE = r'.*require\(["\']([^.][^\.]*?)["\']\).*'
+MODULE = r'.*(?:import.*from.*["\']([^.].*?)["\']|require\(["\']([^.][^\.]*?)["\']\)).*'
 ICON = "Packages/npm-install/icon-%s.png"
 data = {}
 root = {}
@@ -31,7 +31,7 @@ def node_modules_ls(file, p):
         args = ['npm', 'root']
         if sys.platform != 'win32':
           args = [ " ".join(args) ]
-        p = subprocess.Popen(args, cwd=p, shell=True, stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+        p = subprocess.Popen(args, cwd=p, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         out, err = p.communicate()
         out = out.decode().strip()
         root[file] = out
