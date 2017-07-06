@@ -32,13 +32,14 @@ def exec(args, pn):
     return subprocess.Popen(args, cwd=pn, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
 def node_modules_ls(file, pn):
-    if not os.path.isfile('%s/package.json' % pn):
-        exec(['npm', 'init', '-f'], pn).wait()
     if file not in root:       
         out, err = exec(['npm', 'root'], pn).communicate()
         out = out.decode().strip()
         root[file] = out
     try:
+        project = out.split('node_modules')[0]
+        if not os.path.isfile('%spackage.json' % project):
+          exec(['npm', 'init', '-f'], project).wait()
         return listdir(root[file])
     except Exception:
         return []
