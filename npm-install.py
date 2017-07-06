@@ -16,7 +16,7 @@ CORE = [
     'tty',  'url',  'util',  'v8',  'vm',  'zlib'
 ]
 
-MODULE = r'.*(?:import.*from.*["\']([^.].*?)["\']|require\(["\']([^.][^\.]*?)["\']\)).*'
+MODULE = r'.*(?:import.*?from.*?|require\()[\"\']([^.][^\.]*?)[\"\']\)?.*'
 ICON = "Packages/npm-install/icon-%s.png"
 data = {}
 root = {}
