@@ -37,10 +37,12 @@ def node_modules_ls(file, pn):
         out = out.decode().strip()
         root[file] = out
     try:
-        project = out.split('node_modules')[0]
-        if not os.path.isfile('%spackage.json' % project):
-          exec(['npm', 'init', '-f'], project).wait()
-        return listdir(root[file])
+        ls = listdir(root[file])
+        if len(ls):
+            project = out.split('node_modules')[0]
+            if not os.path.isfile('%spackage.json' % project):
+              exec(['npm', 'init', '-f'], project).wait()
+        return ls
     except Exception:
         return []
 
