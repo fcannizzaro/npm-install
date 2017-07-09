@@ -39,7 +39,7 @@ def node_modules_ls(file, pn):
     try:
         ls = listdir(root[file])
         if len(ls):
-            project = out.split('node_modules')[0]
+            project = root[file].split('node_modules')[0]
             if not os.path.isfile('%spackage.json' % project):
               exec(['npm', 'init', '-f'], project).wait()
         return ls
@@ -65,7 +65,7 @@ def update_icons(view):
         view.run_command('npm_install', {'action': 'initial'})
     else:
         modules = data[file]
-
+    
     for region in view.find_all(MODULE):
         m = re.search(MODULE, view.substr(region))
         a, b = m.span(1)
