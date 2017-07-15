@@ -16,8 +16,8 @@ Type **Install Package** and press enter. Then search for **npm-install**.
 |           Command           | Default shortcut key<br>(Windows, Linux) | Default shortcut key<br>(OS X) | Extra
 |---------------------------|-------------------------------------|---------------------------|---------------------------|
 |Install Modules |<kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>I</kbd>|<kbd>⌘</kbd>+<kbd>option</kbd>+<kbd>I</kbd>| Command Palette
-|Uninstall Module|<kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>U</kbd><br><kbd>ALT</kbd>+<kbd>RIGHT CLICK</kbd>|<kbd>⌘</kbd>+<kbd>option</kbd>+<kbd>U</kbd><br><kbd>option</kbd>+<kbd>RIGHT CLICK</kbd>| Command Palette<br>Context Menu
-|Open Documentation on [npmjs](https://www.npmjs.com)|<kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>ENTER</kbd><br><kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>CLICK</kbd>|<kbd>option</kbd>+<kbd>ENTER</kbd><br><kbd>option</kbd>+<kbd>CLICK</kbd>| Command Palette<br>Context Menu
+|Uninstall Module|<kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>U</kbd><br><kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>RIGHT CLICK</kbd>|<kbd>⌘</kbd>+<kbd>option</kbd>+<kbd>U</kbd><br><kbd>⌘</kbd>+<kbd>option</kbd>+<kbd>RIGHT CLICK</kbd>| Command Palette<br>Context Menu
+|Open Documentation on [npmjs](https://www.npmjs.com)|<kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>ENTER</kbd><br><kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>CLICK</kbd>|<kbd>⌘</kbd>+<kbd>option</kbd>+<kbd>ENTER</kbd><br><kbd>⌘</kbd>+<kbd>option</kbd>+<kbd>CLICK</kbd>| Command Palette<br>Context Menu
 
 ## Icons
 | Icon |    Description   |
