@@ -8,7 +8,7 @@
     "command": "npm_uninstall"
   },
   {
-    "keys": ["alt+enter"],
+    "keys": ["ctrl+alt+enter"],
     "command": "npm_doc"
   }  
 ]

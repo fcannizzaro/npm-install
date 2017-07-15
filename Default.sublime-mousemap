@@ -2,13 +2,13 @@
  {
     "button": "button1",
     "count": 1,
-    "modifiers": ["alt"],
+    "modifiers": ["ctrl", "alt"],
     "command": "npm_doc"
   },
    {
     "button": "button2",
     "count": 1,
-    "modifiers": ["alt"],
+    "modifiers": ["ctrl", "alt"],
     "command": "npm_uninstall"
   }
 ]
