@@ -7,8 +7,8 @@ import sys
 import re
 import os.path
 
-from os import listdir, path
 from sublime import Region
+from os import listdir
 
 CORE = [
     'assert',  'buffer',  'child_process',  'cluster',  'crypto',  'dgram',
@@ -17,7 +17,7 @@ CORE = [
     'tty',  'url',  'util',  'v8',  'vm',  'zlib'
 ]
 
-MODULE = r'.*(?:import.*?from.*?|require\()[\"\']([^.\n][^\/\.\n]*).*?[\"\']\)?.*'
+MODULE = r'.*(?:import.*?from.*?|require\()[\"\']([^.\n][^"\'\/\.\n]*).*?[\"\']\)?.*'
 ICON = "Packages/npm-install/icon-%s.png"
 data = {}
 root = {}
@@ -32,17 +32,12 @@ def exec(args, pn):
     return subprocess.Popen(args, cwd=pn, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
 def node_modules_ls(file, pn):
-    if file not in root:       
+    if file not in root:
         out, err = exec(['npm', 'root'], pn).communicate()
         out = out.decode().strip()
         root[file] = out
     try:
-        ls = listdir(root[file])
-        if len(ls):
-            project = root[file].split('node_modules')[0]
-            if not os.path.isfile('%spackage.json' % project):
-              exec(['npm', 'init', '-f'], project).wait()
-        return ls
+        return listdir(root[file])
     except Exception:
         return []
 
@@ -65,7 +60,7 @@ def update_icons(view):
         view.run_command('npm_install', {'action': 'initial'})
     else:
         modules = data[file]
-    
+
     for region in view.find_all(MODULE):
         m = re.search(MODULE, view.substr(region))
         a, b = m.span(1)
@@ -197,7 +192,7 @@ class EventEditor(sublime_plugin.EventListener):
         return [module+'\tnpm', 'var %s = require(\'%s\');\n' % (clean, module)]
 
     def on_query_completions(self, view, prefix, locations):
-        if is_valid(view) and view.settings().get('npm_autocomplete', True):
+        if is_valid(view) and view.settings().get('npm_autocomplete', False):
             file = view.file_name()
             if file in data:
                 return [self.get_module(module) for module in data[file] if '.' not in module]

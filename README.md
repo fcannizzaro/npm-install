@@ -9,7 +9,7 @@ You can install this package through the [Package Control](https://packagecontro
 
 Press <kbd>⌘</kbd>/<kbd>Ctrl</kbd> + <kbd>⇧</kbd> + <kbd>P</kbd> to open the command palette.
 
-Type **Install Package** and press enter. Then search for **npm-install**.
+Type **Install Package** and press D. Then search for **npm-install**.
 
 ## Commands
 
@@ -17,7 +17,7 @@ Type **Install Package** and press enter. Then search for **npm-install**.
 |---------------------------|-------------------------------------|---------------------------|---------------------------|
 |Install Modules |<kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>I</kbd>|<kbd>⌘</kbd>+<kbd>option</kbd>+<kbd>I</kbd>| Command Palette
 |Uninstall Module|<kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>U</kbd><br><kbd>ALT</kbd>+<kbd>RIGHT CLICK</kbd>|<kbd>⌘</kbd>+<kbd>option</kbd>+<kbd>U</kbd><br><kbd>option</kbd>+<kbd>RIGHT CLICK</kbd>| Command Palette<br>Context Menu
-|Open Documentation on [npmjs](https://www.npmjs.com)|<kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>ENTER</kbd><br><kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>CLICK</kbd>|<kbd>option</kbd>+<kbd>ENTER</kbd><br><kbd>option</kbd>+<kbd>CLICK</kbd>| Command Palette<br>Context Menu
+|Open Documentation on [npmjs](https://www.npmjs.com)|<kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>D</kbd><br><kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>CLICK</kbd>|<kbd>option</kbd>+<kbd>D</kbd><br><kbd>option</kbd>+<kbd>CLICK</kbd>| Command Palette<br>Context Menu
 
 ## Icons
 | Icon |    Description   |
@@ -29,6 +29,6 @@ Type **Install Package** and press enter. Then search for **npm-install**.
 
 |         key           |    default    |                        action                     |
 |-----------------------|:-------------:|---------------------------------------------------|
-| `npm_autocomplete`    |   **true**    | autocomplete node modules's require.              |
+| `npm_autocomplete`    |   **false**    | autocomplete node modules's require.              |
 | `npm_install_on_save` |   **true**    | auto-install node modules **on save**.            |
 | `npm_install_manager` |   **"npm"**   | javascript package manager: `npm`, `yarn`, `pnpm` |
