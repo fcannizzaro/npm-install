@@ -9,7 +9,7 @@ You can install this package through the [Package Control](https://packagecontro
 
 Press <kbd>⌘</kbd>/<kbd>Ctrl</kbd> + <kbd>⇧</kbd> + <kbd>P</kbd> to open the command palette.
 
-Type **Install Package** and press D. Then search for **npm-install**.
+Type **Install Package** and press **Enter**. Then search for **npm-install**.
 
 ## Commands
 
