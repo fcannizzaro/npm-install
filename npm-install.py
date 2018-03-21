@@ -24,7 +24,7 @@ root = {}
 
 
 def is_valid(view):
-    return view.file_name() != None and view.file_name().endswith('.js')
+    return view.file_name() != None and view.file_name().endswith(('.js', '.jsx'))
 
 def exec(args, pn):
     if sys.platform != 'win32':
