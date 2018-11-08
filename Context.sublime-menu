@@ -8,5 +8,5 @@
         "caption": "Remove NPM Module",
         "mnemonic": "R",
         "command":  "npm_uninstall"     
-    }  
+    }
 ]

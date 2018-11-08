@@ -1,0 +1,6 @@
+{
+    "install_manager": "npm",
+    "install_on_save": true,
+    "prune_on_uninstall": false,
+    "autocomplete": false
+}

@@ -27,8 +27,9 @@ Type **Install Package** and press **Enter**. Then search for **npm-install**.
 
 ## Settings
 
-|         key           |    default    |                        action                     |
-|-----------------------|:-------------:|---------------------------------------------------|
-| `npm_autocomplete`    |   **false**    | autocomplete node modules's require.              |
-| `npm_install_on_save` |   **true**    | auto-install node modules **on save**.            |
-| `npm_install_manager` |   **"npm"**   | javascript package manager: `npm`, `yarn`, `pnpm` |
+|         key           |    default    |                        action                      |
+|-----------------------|:-------------:|----------------------------------------------------|
+| `autocomplete`        |   **false**   | autocomplete node modules's require.               |
+| `install_on_save`     |   **true**    | auto-install node modules **on save**.             |
+| `prune_on_uninstall`  |   **false**   | auto-remove unused packages after **uninstall**.   |
+| `install_manager`     |   **"npm"**   | javascript package manager: `npm`, `yarn`, `pnpm`  |
