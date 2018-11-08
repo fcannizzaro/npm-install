@@ -3,7 +3,6 @@ import subprocess
 import sys
 import threading
 import webbrowser
-from os import listdir
 
 import sublime
 import sublime_plugin
@@ -44,7 +43,7 @@ CORE = init_core_modules()
 
 
 def is_valid(view):
-    return view.file_name() and view.file_name().endswith(('.js', '.jsx'))
+    return view.file_name() and view.file_name().endswith('.js')
 
 
 # noinspection PyBroadException
