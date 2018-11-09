@@ -53,10 +53,12 @@ def node_modules_ls(file, pn):
         out = out.decode().strip()
         root[file] = out
 
-    out, err = exec_command(['npm', 'ls', '--parseable', '--depth=0'], root[file]).communicate()
-    items = out.decode().split('\n')
-    return [item.replace('\\', '/').split('node_modules/')[1] for item in items if 'node_modules' in item]
-
+    try:   
+        out, err = exec_command(['npm', 'ls', '--parseable', '--depth=0'], root[file]).communicate()
+        items = out.decode().split('\n')
+        return [item.replace('\\', '/').split('node_modules/')[1] for item in items if 'node_modules' in item]
+    except Exception:
+        return []
 
 def cwd(view):
     project = re.match(r'(.*)[/\\].*', view.file_name())
