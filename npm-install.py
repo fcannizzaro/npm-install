@@ -10,7 +10,7 @@ from sublime import Region
 
 package_settings = sublime.load_settings('NpmInstall.sublime-settings')
 
-MODULE = r'.*(?:import.*?from.*?|require\()[\"\'](.+[^\"\'\/\n]*)?[\"\']\)?.*'
+MODULE = r'.*(?:import.*?from.*?|require\()[\"\']([^.].+[^\"\'\/\n]*)?[\"\']\)?.*'
 ICON = "Packages/npm-install/icon-%s.png"
 data, prev, root, progress = {}, {}, {}, {}
 
