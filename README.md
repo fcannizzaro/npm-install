@@ -23,8 +23,8 @@ Type **Install Package** and press **Enter**. Then search for **npm-install**.
 | Icon |    Description   |
 |:----:|:----------------:|
 | ![on](https://raw.githubusercontent.com/fcannizzaro/npm-install/master/icon-on.png)   | installed module |
-| ![installing](https://raw.githubusercontent.com/fcannizzaro/npm-install/master/icon-dw.png) |  installing module  |
 | ![off](https://raw.githubusercontent.com/fcannizzaro/npm-install/master/icon-off.png) |  missing module  |
+| ![installing](https://raw.githubusercontent.com/fcannizzaro/npm-install/master/icon-dw.png) |  installing module  |
 
 ## Settings
 
