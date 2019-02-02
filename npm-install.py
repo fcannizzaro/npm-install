@@ -67,7 +67,7 @@ def cwd(view):
 
 def update_icons(view):
     file = view.file_name()
-    modules, installed, other, result, all_modules = [], [], [], [], []
+    modules, installed, other, result, installing, all_modules = [], [], [], [], [], []
 
     if file not in data:
         view.run_command('npm_install', {'action': 'initial'})
@@ -82,13 +82,16 @@ def update_icons(view):
         all_modules.append(module)
         if module in modules or module in CORE:
             installed.append(reg)
+        elif module in progress:
+            installing.append(reg)
         else:
             other.append(reg)
             result.append(module)
 
     flags = sublime.HIDE_ON_MINIMAP | sublime.DRAW_NO_FILL | sublime.DRAW_NO_OUTLINE | sublime.DRAW_SOLID_UNDERLINE
-    view.add_regions('require-on', installed, 'request', ICON % 'on', flags)
     view.add_regions('require-off', other, 'request', ICON % 'off', flags)
+    view.add_regions('require-on', installed, 'request', ICON % 'on', flags)
+    view.add_regions('require-dw', installing, 'request', ICON % 'dw', flags)
 
     return result, all_modules
 
@@ -168,6 +171,7 @@ class NpmCommand(threading.Thread):
             if self.action is 'install':
                 for module in install:
                     NpmExec(module, cwd_root, 'install', self.view).start()
+                    initial(self.view)
 
 
 class NpmInstallCommand(sublime_plugin.TextCommand):
