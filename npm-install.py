@@ -89,8 +89,6 @@ def update_icons(view):
             other.append(reg)
             result.append(module)
 
-    print('here', get_settings(view, 'npm_icons', True))
-
     if get_settings(view, 'npm_icons', True):
         flags = sublime.HIDE_ON_MINIMAP | sublime.DRAW_NO_FILL | sublime.DRAW_NO_OUTLINE | sublime.DRAW_SOLID_UNDERLINE
         view.add_regions('require-off', other, 'request', ICON % 'off', flags)
