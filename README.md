@@ -34,3 +34,6 @@ Type **Install Package** and press **Enter**. Then search for **npm-install**.
 | `install_on_save`     |   **true**    | auto-install node modules **on save**.             |
 | `prune_on_uninstall`  |   **false**   | auto-remove unused packages after **uninstall**.   |
 | `install_manager`     |   **"npm"**   | javascript package manager: `npm`, `yarn`, `pnpm`  |
+
+## Autocomplete Sample
+![autocomplete](https://raw.githubusercontent.com/fcannizzaro/npm-install/master/autocomplete.gif)

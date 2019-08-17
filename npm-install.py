@@ -10,13 +10,13 @@ from sublime import Region
 
 package_settings = sublime.load_settings('NpmInstall.sublime-settings')
 
-MODULE = r'.*(?:import.*?from.*?|require\()[\"\']([^.].+?[^\"\'\/\n]*)?[\"\']\)?.*'
+MODULE = r'.*(?:import.*?from.*?|require\()[\"\']([^.~\/].+?[^\"\'\/\n]*)?[\"\']\)?.*'
 ICON = "Packages/npm-install/icon-%s.png"
 data, prev, root, progress = {}, {}, {}, {}
 
 
 def get_settings(view, key, default):
-    return view.settings().get(key, default) or package_settings.get(key[5:], default)
+    return view.settings().get(key, None) or package_settings.get(key[4:], default)
 
 
 def clear_args(args):
@@ -53,12 +53,13 @@ def node_modules_ls(file, pn):
         out = out.decode().strip()
         root[file] = out
 
-    try:   
+    try:
         out, err = exec_command(['npm', 'ls', '--parseable', '--depth=0'], root[file]).communicate()
         items = out.decode().split('\n')
         return [item.replace('\\', '/').split('node_modules/')[1] for item in items if 'node_modules' in item]
     except Exception:
         return []
+
 
 def cwd(view):
     project = re.match(r'(.*)[/\\].*', view.file_name())
@@ -88,10 +89,13 @@ def update_icons(view):
             other.append(reg)
             result.append(module)
 
-    flags = sublime.HIDE_ON_MINIMAP | sublime.DRAW_NO_FILL | sublime.DRAW_NO_OUTLINE | sublime.DRAW_SOLID_UNDERLINE
-    view.add_regions('require-off', other, 'request', ICON % 'off', flags)
-    view.add_regions('require-on', installed, 'request', ICON % 'on', flags)
-    view.add_regions('require-dw', installing, 'request', ICON % 'dw', flags)
+    print(get_settings(view, 'npm_icons', True))
+
+    if get_settings(view, 'npm_icons', True):
+        flags = sublime.HIDE_ON_MINIMAP | sublime.DRAW_NO_FILL | sublime.DRAW_NO_OUTLINE | sublime.DRAW_SOLID_UNDERLINE
+        view.add_regions('require-off', other, 'request', ICON % 'off', flags)
+        view.add_regions('require-on', installed, 'request', ICON % 'on', flags)
+        view.add_regions('require-dw', installing, 'request', ICON % 'dw', flags)
 
     return result, all_modules
 
@@ -230,7 +234,6 @@ class EventEditor(sublime_plugin.EventListener):
         clean = module.replace('-', '_').replace('@', '')
         return [module + '\tnpm', 'var %s = require(\'%s\');\n' % (clean, module)]
 
-    # noinspection PyUnusedLocal
     def on_query_completions(self, view, prefix, locations):
         if is_valid(view) and get_settings(view, 'npm_autocomplete', False):
             file = view.file_name()
