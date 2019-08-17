@@ -8,11 +8,11 @@ import sublime
 import sublime_plugin
 from sublime import Region
 
-package_settings = sublime.load_settings('NpmInstall.sublime-settings')
-
 MODULE = r'.*(?:import.*?from.*?|require\()[\"\']([^.~\/].+?[^\"\'\/\n]*)?[\"\']\)?.*'
 ICON = "Packages/npm-install/icon-%s.png"
 data, prev, root, progress = {}, {}, {}, {}
+
+package_settings = None
 
 
 def get_settings(view, key, default):
@@ -89,7 +89,7 @@ def update_icons(view):
             other.append(reg)
             result.append(module)
 
-    print(get_settings(view, 'npm_icons', True))
+    print('here', get_settings(view, 'npm_icons', True))
 
     if get_settings(view, 'npm_icons', True):
         flags = sublime.HIDE_ON_MINIMAP | sublime.DRAW_NO_FILL | sublime.DRAW_NO_OUTLINE | sublime.DRAW_SOLID_UNDERLINE
@@ -230,19 +230,23 @@ class EventEditor(sublime_plugin.EventListener):
         if get_settings(view, 'npm_install_on_save', True):
             view.run_command('npm_install')
 
-    def get_module(self, module):
+    def get_module(self, module, prefix):
         clean = module.replace('-', '_').replace('@', '')
-        return [module + '\tnpm', 'var %s = require(\'%s\');\n' % (clean, module)]
+        return [module + '\tnpm', '%s %s = require(\'%s\');\n' % (prefix, clean, module)]
 
     def on_query_completions(self, view, prefix, locations):
+        prefix = get_settings(view, 'npm_autocomplete_prefix', 'var')
         if is_valid(view) and get_settings(view, 'npm_autocomplete', False):
             file = view.file_name()
             if file in data:
-                return [self.get_module(module) for module in data[file] if '.' not in module]
+                autocomplete_modules = set([module.replace('/', '') for module in data[file] if '.' not in module])
+                return [self.get_module(module, prefix) for module in autocomplete_modules]
         return []
 
 
 def plugin_loaded():
+    global package_settings
+    package_settings = sublime.load_settings('NpmInstall.sublime-settings')
     for win in sublime.windows():
         for view in win.views():
             initial(view)
