@@ -30,8 +30,9 @@ Type **Install Package** and press **Enter**. Then search for **npm-install**.
 
 |         key           |    default    |                        action                      |
 |-----------------------|:-------------:|----------------------------------------------------|
+| `icons`               |   **true**    | enable/disable status icons                        |
 | `autocomplete`        |   **false**   | autocomplete node modules's require.               |
-| `autocomplete_prefix` |   **"var"**   | javascript prefix: `var`, `const`, `let`         |
+| `autocomplete_prefix` |   **"var"**   | javascript prefix: `var`, `const`, `let`           |
 | `install_on_save`     |   **true**    | auto-install node modules **on save**.             |
 | `prune_on_uninstall`  |   **false**   | auto-remove unused packages after **uninstall**.   |
 | `install_manager`     |   **"npm"**   | javascript package manager: `npm`, `yarn`, `pnpm`  |
